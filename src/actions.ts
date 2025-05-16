@@ -40,6 +40,7 @@ export class DbServive{
                 const db = (event.target as IDBOpenDBRequest).result;
                 if(!db.objectStoreNames.contains(this.storeName)) {
                     const objectStore = db.createObjectStore(this.storeName, { keyPath: 'id' });
+                    objectStore.createIndex('id', 'id', { unique: true });
                     objectStore.createIndex('name', 'name', { unique: false });
                     objectStore.createIndex('price', 'price', { unique: false });
                     objectStore.createIndex('category', 'category', { unique: false });
