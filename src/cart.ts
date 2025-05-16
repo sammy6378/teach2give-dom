@@ -105,7 +105,7 @@ export function renderCart() {
     <div class="cart-items">
       ${cart.length === 0
         ? `
-          <img src="../assets/images/illustration-empty-cart.svg" alt="empty cart icon">
+          <img src="/assets/images/illustration-empty-cart.svg" alt="empty cart icon">
           <p>Your added items will appear here</p>
         `
         : `
@@ -119,7 +119,7 @@ export function renderCart() {
                 </p>
               </div>
               <button class="delete-icon" data-name="${item.name}">
-              <img src="../assets/images/icon-remove-item.svg" alt="delete icon">
+              <img src="/assets/images/icon-remove-item.svg" alt="delete icon">
             </button>
             </div>
           `).join('')}
@@ -162,7 +162,7 @@ function showOrderModal() {
     overlay.innerHTML = `
       <div class="modal">
         <div class="modal-header">
-          <img src="../assets/images/icon-order-confirmed.svg" alt="close icon">
+          <img src="/assets/images/icon-order-confirmed.svg" alt="close icon">
           <h2>Order Confirmed</h2>
           <p>We hope you enjoy your food.</p>
         </div>
@@ -182,7 +182,7 @@ function showOrderModal() {
     overlay.innerHTML = `
       <div class="modal">
         <div class="modal-header">
-          <img src="../assets/images/icon-order-confirmed.svg" alt="close icon">
+          <img src="/assets/images/icon-order-confirmed.svg" alt="close icon">
           <h2>No Items</h2>
           <p>Your cart is empty.</p>
         </div>
