@@ -1,7 +1,9 @@
 // cart.ts
+import { dbService } from "./main";
 
 // interface for cart items
 interface CartItem {
+    id: number;
   name: string;
   price: number;
   category: string;
@@ -18,7 +20,8 @@ interface CartItem {
 const cart: CartItem[] = []
 
 // add item to cart
-export function addToCart(item: {
+export async function addToCart(item: {
+id: number;
   name: string;
   price: number;
   category: string;
@@ -35,6 +38,7 @@ export function addToCart(item: {
     existingItem.quantity += 1;
   } else {
     cart.push({
+    id: item.id,
       name: item.name,
       price: item.price,
       category: item.category,
@@ -46,6 +50,28 @@ export function addToCart(item: {
       },
       quantity: 1,
     });
+  }
+
+//   save to indexdb
+  const dbItem = {
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    category: item.category,
+    thumbnail: item.image.thumbnail,
+  };
+
+  try {
+    const allItems = await dbService.getAllItems();
+    const exists = allItems.some(i => i.name === dbItem.name);
+
+    if (!exists) {
+      await dbService.addItem(dbItem);
+    } else {
+      await dbService.updateItem(dbItem);
+    }
+  } catch (error) {
+    console.error('DB error during addToCart:', error);
   }
 
   renderCart();
