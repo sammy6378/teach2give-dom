@@ -2,6 +2,12 @@ import './style.css'
 import data from '../data.json'
 import { renderCart, addToCart } from './cart'
 
+import { DbServive } from './actions';
+
+export const dbService = new DbServive();
+await dbService.initDatabase(); // database is ready
+
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header class="header">
     <h1>Deserts</h1>
