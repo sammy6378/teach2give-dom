@@ -23,7 +23,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <img src="${item.image.desktop}" alt="Desert ${index + 1}">
           </div>
           <button class="add-to-cart" data-index="${index}">
-            <img src="/assets/images/icon-add-to-cart.svg" alt="cart icon"> Add to cart
+            <img src="../assets/images/icon-add-to-cart.svg" alt="cart icon"> Add to cart
           </button>
           <div class="description-section">
             <p>${item.name}</p>
