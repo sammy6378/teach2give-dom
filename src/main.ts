@@ -1,6 +1,7 @@
 import './style.css'
 import data from '../data.json'
-import { renderCart, addToCart } from './cart'
+import { renderCart, addToCart,loadCartFromDB } from './cart'
+
 
 import { DbServive } from './actions';
 
@@ -8,12 +9,16 @@ export const dbService = new DbServive();
 await dbService.initDatabase(); // database is ready
 
 
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadCartFromDB();
+});
+
+
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header class="header">
     <h1>Deserts</h1>
-    <button class="btn-add-items">
-    Add Items
-    </button>
   </header>
   <div class="wrapper"> 
     <div class="container">
@@ -23,7 +28,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <img src="${item.image.desktop}" alt="Desert ${index + 1}">
           </div>
           <button class="add-to-cart" data-index="${index}">
-            <img src="../assets/images/icon-add-to-cart.svg" alt="cart icon"> Add to cart
+            <img src="/icon-add-to-cart.svg" alt="cart icon"> Add to cart
           </button>
           <div class="description-section">
             <p>${item.name}</p>
@@ -43,7 +48,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 document.querySelectorAll<HTMLButtonElement>('.add-to-cart').forEach(button => {
   button.addEventListener('click', () => {
     const index = parseInt(button.dataset.index!);
-    addToCart(data[index]);
+    addToCart({
+      ...data[index],
+      quantity: 1,
+  });
   });
 });
 
