@@ -5,6 +5,7 @@ interface TItem{
     name: string;
     price: number;
     category: string;
+    quantity: number;
     thumbnail: string;
 }
 
@@ -44,6 +45,7 @@ export class DbServive{
                     objectStore.createIndex('name', 'name', { unique: false });
                     objectStore.createIndex('price', 'price', { unique: false });
                     objectStore.createIndex('category', 'category', { unique: false });
+                    objectStore.createIndex('quantity', 'quantity', { unique: false });
                     objectStore.createIndex('thumbnail', 'thumbnail', { unique: false });
                 }
             }
@@ -128,8 +130,22 @@ async deleteItem(id: number): Promise<void> {
         };
     })};
 
+    async deleteAllItems(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const transaction = this.db!.transaction(this.storeName, 'readwrite');
+            const objectStore = transaction.objectStore(this.storeName);
+            const request = objectStore.clear();
 
+            request.onsuccess = () => {
+                console.log('All items deleted successfully');
+                resolve();
+            };
 
-
-
+            request.onerror = (event) => {
+                console.error('Error deleting all items:', event);
+                reject(event);
+            };
+        });
+    }
+ 
 }
