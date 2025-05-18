@@ -6,13 +6,13 @@ import { renderCart, addToCart,loadCartFromDB } from './cart'
 import { DbServive } from './actions';
 
 export const dbService = new DbServive();
-await dbService.initDatabase(); // database is ready
 
 
-
-document.addEventListener('DOMContentLoaded', () => {
+(async () => {
+  await dbService.initDatabase(); 
   loadCartFromDB();
-});
+})();
+
 
 
 
